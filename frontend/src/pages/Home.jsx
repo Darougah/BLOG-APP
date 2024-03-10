@@ -1,5 +1,6 @@
 import HomePosts from "../components/HomePosts";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 const Home = () => {
   return (
     <>
@@ -11,7 +12,7 @@ const Home = () => {
         <HomePosts />
         <HomePosts />
       </div>
-      <footer />
+      <Footer />
     </>
   );
 };
