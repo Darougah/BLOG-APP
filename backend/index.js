@@ -1,11 +1,13 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const app = express();
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
-//database
+const authRoute = require("./routes/auth");
+
 const connectDB = async () => {
   try {
-    await mongoose.connect("mongodb://localhost:27017");
+    await mongoose.connect(process.env.MONGO_URL);
     console.log("database is connected successfully!");
   } catch (err) {
     console.log(err);
@@ -13,8 +15,11 @@ const connectDB = async () => {
 };
 
 //middlewares
+dotenv.config();
+app.use(express.json());
+app.use("/api/auth", authRoute);
 
-app.listen(5000, () => {
+app.listen(process.env.PORT, () => {
   connectDB();
-  console.log("app is running on port 5000");
+  console.log("app is running on port " + process.env.PORT);
 });
