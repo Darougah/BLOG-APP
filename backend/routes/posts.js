@@ -51,10 +51,15 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// GET POSTS
+//GET POSTS
 router.get("/", async (req, res) => {
+  const query = req.query;
+
   try {
-    const posts = await Post.find();
+    const searchFilter = {
+      title: { $regex: query.search, $options: "i" },
+    };
+    const posts = await Post.find(query.search ? searchFilter : null);
     res.status(200).json(posts);
   } catch (err) {
     res.status(500).json(err);
