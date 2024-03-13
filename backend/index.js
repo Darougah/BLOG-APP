@@ -6,6 +6,7 @@ const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
 const postRoute = require("./routes/posts");
 const commentRoute = require("./routes/comments");
+const cookieParser = require("cookie-parser");
 
 const connectDB = async () => {
   try {
@@ -19,6 +20,7 @@ const connectDB = async () => {
 //middlewares
 dotenv.config();
 app.use(express.json());
+app.use(cookieParser);
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
