@@ -3,7 +3,7 @@ import Footer from "./../components/Footer.jsx";
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import Comment from "../components/Comment.jsx";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { URL, IF } from "../url.js";
 import { useContext, useEffect, useState } from "react";
@@ -15,6 +15,7 @@ const PostDetails = () => {
   const [post, setPost] = useState({});
   const {user} = useContext(UserContext);
   const [loader, setLoader] = useState(false);
+  const navigate=useNavigate()
 
   const fetchPost = async () => {
     setLoader(true);
@@ -27,6 +28,20 @@ const PostDetails = () => {
       setLoader(false);
     }
   };
+
+  const handleDeletePost=async ()=>{
+
+    try{
+      const res=await axios.delete(URL+"/api/posts/"+postId,{withCredentials:true})
+      console.log(res.data)
+      navigate("/")
+
+    }
+    catch(err){
+      console.log(err)
+    }
+
+  }
 
   useEffect(() => {
     fetchPost();
@@ -47,12 +62,8 @@ const PostDetails = () => {
             </h1>
             {user?._id === post?.userId && (
               <div className="flex items-center justify-center space-x-2">
-                <p>
-                  <BiEdit />
-                </p>
-                <p>
-                  <MdDelete />
-                </p>
+<p className="cursor-pointer" onClick={()=>navigate("/edit/"+postId)} ><BiEdit/></p>
+                <p className="cursor-pointer" onClick={handleDeletePost}><MdDelete/></p>
               </div>
             )}
           </div>
