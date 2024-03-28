@@ -97,7 +97,7 @@ const PostDetails = () => {
             <h1 className="text-2xl font-bold text-black md:text-3xl">
               {post.title}
             </h1>
-            {user?._id === post?.userId && (
+            {(user?._id === post?.userId || "Admin" === user?.username) && (
               <div className="flex items-center justify-center space-x-2">
                 <p
                   className="cursor-pointer"

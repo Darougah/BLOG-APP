@@ -16,6 +16,10 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    isAdmin: {
+      type: Boolean,
+      default: false, // Regular users are not admins by default
+    },
   },
   { timestamps: true }
 );
