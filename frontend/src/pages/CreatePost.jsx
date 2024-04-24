@@ -1,77 +1,85 @@
-
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import {ImCross} from 'react-icons/im'
+import { ImCross } from 'react-icons/im'
 import { useContext, useState } from 'react'
 import { UserContext } from '../context/UserContext'
 import { URL } from '../url'
 import axios from 'axios'
 import { Navigate, useNavigate } from 'react-router-dom'
 
+// List of swear words to censor
+const swearWords = ["badword1", "badword2", "badword3"];
+
+// Function to censor swear words
+const censorSwearWords = (text) => {
+  let censoredText = text;
+  swearWords.forEach((word) => {
+    const regex = new RegExp("\\b" + word + "\\b", "gi");
+    censoredText = censoredText.replace(regex, "*".repeat(word.length));
+  });
+  return censoredText;
+};
+
 const CreatePost = () => {
    
-    const [title,setTitle]=useState("")
-    const [desc,setDesc]=useState("")
-    const [file,setFile]=useState(null)
-    const {user}=useContext(UserContext)
-    const [cat,setCat]=useState("")
-    const [cats,setCats]=useState([])
+    const [title, setTitle] = useState("")
+    const [desc, setDesc] = useState("")
+    const [file, setFile] = useState(null)
+    const { user } = useContext(UserContext)
+    const [cat, setCat] = useState("")
+    const [cats, setCats] = useState([])
+    const navigate = useNavigate()
 
-    const navigate=useNavigate()
-
-    const deleteCategory=(i)=>{
-       let updatedCats=[...cats]
+    const deleteCategory = (i) => {
+       let updatedCats = [...cats]
        updatedCats.splice(i)
        setCats(updatedCats)
     }
 
-    const addCategory=()=>{
-        let updatedCats=[...cats]
+    const addCategory = () => {
+        let updatedCats = [...cats]
         updatedCats.push(cat)
         setCat("")
         setCats(updatedCats)
     }
 
-    const handleCreate=async (e)=>{
+    const handleCreate = async (e) => {
         e.preventDefault()
-        const post={
-          title,
-          desc,
-          username:user.username,
-          userId:user._id,
-          categories:cats
+        // Censor swear words in the title, description, and categories
+        const censoredTitle = censorSwearWords(title);
+        const censoredDesc = censorSwearWords(desc);
+        const censoredCats = cats.map(cat => censorSwearWords(cat));
+        
+        const post = {
+          title: censoredTitle,
+          desc: censoredDesc,
+          username: user.username,
+          userId: user._id,
+          categories: censoredCats
         }
 
         if(file){
-          const data=new FormData()
-          const filename=Date.now()+file.name
-          data.append("img",filename)
-          data.append("file",file)
-          post.photo=filename
-          // console.log(data)
-          //img upload
+          const data = new FormData()
+          const filename = Date.now() + file.name
+          data.append("img", filename)
+          data.append("file", file)
+          post.photo = filename
           try{
-            const imgUpload=await axios.post(URL+"/api/upload",data)
-            // console.log(imgUpload.data)
+            const imgUpload = await axios.post(URL + "/api/upload", data)
           }
           catch(err){
             console.log(err)
           }
         }
-        //post upload
-        // console.log(post)
+        
         try{
-          const res=await axios.post(URL+"/api/posts/create",post,{withCredentials:true})
-          navigate("/posts/post/"+res.data._id)
-          // console.log(res.data)
-
+          const res = await axios.post(URL + "/api/posts/create", post, {withCredentials: true})
+          navigate("/posts/post/" + res.data._id)
         }
         catch(err){
           console.log(err)
         }
     }
-
-
 
   return (
     <div>
@@ -86,7 +94,6 @@ const CreatePost = () => {
                 <input value={cat} onChange={(e)=>setCat(e.target.value)} className='px-4 py-2 outline-none' placeholder='Enter post category' type="text"/>
                 <div onClick={addCategory} className='bg-black text-white px-4 py-2 font-semibold cursor-pointer'>Add</div>
             </div>
-
             {/* categories */}
             <div className='flex px-4 mt-3'>
             {cats?.map((c,i)=>(
@@ -95,18 +102,15 @@ const CreatePost = () => {
                 <p onClick={()=>deleteCategory(i)} className='text-white bg-black rounded-full cursor-pointer p-1 text-sm'><ImCross/></p>
             </div>
             ))}
-            
-            
             </div>
           </div>
           <textarea onChange={(e)=>setDesc(e.target.value)} rows={15} cols={30} className='px-4 py-2 outline-none' placeholder='Enter post description'/>
           <button onClick={handleCreate} className='bg-black w-full md:w-[20%] mx-auto text-white font-semibold px-4 py-2 md:text-xl text-lg'>Create</button>
         </form>
-
         </div>
         <Footer/>
     </div>
   )
 }
 
-export default CreatePost
+export default CreatePost;
