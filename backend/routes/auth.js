@@ -4,7 +4,23 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-//REGISTER
+
+// REGISTER ADMIN
+router.post("/register-admin", async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+    const isAdmin = true; // Set isAdmin to true for admin user
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    const newUser = new User({ username, email, password: hashedPassword, isAdmin });
+    const savedUser = await newUser.save();
+    res.status(200).json(savedUser);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// REGISTER REGULAR USER
 router.post("/register", async (req, res) => {
   try {
     const { username, email, password, isAdmin } = req.body;
