@@ -12,7 +12,7 @@ const Menu = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.get(URL + "/api/auth/logout", {
+      const res = await axios.get(`https://danielblogg.onrender.com/api/auth/logout`, {
         withCredentials: true,
       });
       setUser(null);
