@@ -134,7 +134,7 @@ const PostDetails = () => {
               placeholder="write a comment"
               className="md:w-[80%] outline-none px-4 mt-4 md:mt-0"
             ></input>
-            <button onClick={postComment} className="bg-black text-sm text-white px-4 py-2 md:w[10%] mt-4 md:mt-0">
+            <button onClick={postComment} className="bg-blue-500 text-sm text-white px-4 py-2 md:w[10%] mt-4 md:mt-0">
               Add a comment
             </button>
           </div>

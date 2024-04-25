@@ -104,7 +104,7 @@ useEffect(()=>{
               />
               <div
                 onClick={addCategory}
-                className="bg-black text-white px-4 py-2 font-semibold cursor-pointer"
+                className="bg-blue-500 text-white px-4 py-2 font-semibold cursor-pointer"
               >
                 {" "}
                 Add
@@ -120,7 +120,7 @@ useEffect(()=>{
                   <p>{c}</p>
                   <p
                     onClick={() => deleteCategory(i)}
-                    className="text-white bg-black rounded-full cursor-pointer p-1 text-sm"
+                    className="text-white bg-blue-500 rounded-full cursor-pointer p-1 text-sm"
                   >
                     <ImCross />
                   </p>
@@ -135,7 +135,7 @@ useEffect(()=>{
             className="px-4 py-2 outline-none"
             placeholder="Enter post description"
           />
-          <button onClick={handleUpdate} className="bg-black w-full md:w[20%] mx-auto text-white font-semibold px-4 py-2 md:text-xl text-lg">
+          <button onClick={handleUpdate} className="bg-blue-500 w-full md:w[20%] mx-auto text-white font-semibold px-4 py-2 md:text-xl text-lg">
             Update
           </button>
         </form>

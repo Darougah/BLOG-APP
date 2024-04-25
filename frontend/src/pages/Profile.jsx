@@ -103,10 +103,10 @@ useEffect(()=>{
               type="password"
             /> */}
             <div className="flex items-center space-x-4 mt-8">
-              <button onClick={handleUserUpdate} className="text-white font-semibold bg-black px-4 py-2 hover:text-black hover:bg-gray-400">
+              <button onClick={handleUserUpdate} className="text-white font-semibold bg-blue-500 px-4 py-2 hover:text-black hover:bg-gray-400">
                 Update
               </button>
-              <button onClick={handleUserDelete} className="text-white font-semibold bg-black px-4 py-2 hover:text-black hover:bg-gray-400">
+              <button onClick={handleUserDelete} className="text-white font-semibold bg-blue-500 px-4 py-2 hover:text-black hover:bg-gray-400">
                 Delete
               </button>
             </div>
