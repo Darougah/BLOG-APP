@@ -6,16 +6,17 @@ import { URL } from "../url";
 import { UserContext } from "../context/UserContext";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
+  
   const handleLogin = async () => {
     try {
       const res = await axios.post(
         URL + "/api/auth/login",
-        { email, password },
+        { username, password },
         { withCredentials: true }
       );
       setUser(res.data);
@@ -42,10 +43,10 @@ const Login = () => {
             Log in to your account
           </h1>
           <input
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setUsername(e.target.value)}
             className="w-full px-4 py-2 border-2 border-black outline-0"
             type="text"
-            placeholder="Enter your email"
+            placeholder="Enter your username"
           />
           <input
             onChange={(e) => setPassword(e.target.value)}
