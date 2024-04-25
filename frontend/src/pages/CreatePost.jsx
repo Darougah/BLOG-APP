@@ -5,9 +5,11 @@ import { useContext, useState } from 'react'
 import { UserContext } from '../context/UserContext'
 import { URL } from '../url'
 import axios from 'axios'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+
 // List of swear words to censor
 const swearWords = ["badword1", "badword2", "badword3"];
+
 // Function to censor swear words
 const censorSwearWords = (text) => {
   let censoredText = text;
@@ -17,28 +19,32 @@ const censorSwearWords = (text) => {
   });
   return censoredText;
 };
+
 const CreatePost = () => {
-   
-    const [title, setTitle] = useState("")
-    const [desc, setDesc] = useState("")
-    const [file, setFile] = useState(null)
-    const { user } = useContext(UserContext)
-    const [cat, setCat] = useState("")
-    const [cats, setCats] = useState([])
-    const navigate = useNavigate()
+    const [title, setTitle] = useState("");
+    const [desc, setDesc] = useState("");
+    const [file, setFile] = useState(null);
+    const { user } = useContext(UserContext);
+    const [cat, setCat] = useState("");
+    const [cats, setCats] = useState([]);
+    const navigate = useNavigate();
+
     const deleteCategory = (i) => {
-       let updatedCats = [...cats]
-       updatedCats.splice(i)
-       setCats(updatedCats)
-    }
+       let updatedCats = [...cats];
+       updatedCats.splice(i, 1);
+       setCats(updatedCats);
+    };
+
     const addCategory = () => {
-        let updatedCats = [...cats]
-        updatedCats.push(cat)
-        setCat("")
-        setCats(updatedCats)
-    }
+        let updatedCats = [...cats];
+        updatedCats.push(cat);
+        setCat("");
+        setCats(updatedCats);
+    };
+
     const handleCreate = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
+
         // Censor swear words in the title, description, and categories
         const censoredTitle = censorSwearWords(title);
         const censoredDesc = censorSwearWords(desc);
@@ -50,29 +56,31 @@ const CreatePost = () => {
           username: user.username,
           userId: user._id,
           categories: censoredCats
-        }
+        };
+
         if(file){
-          const data = new FormData()
-          const filename = Date.now() + file.name
-          data.append("img", filename)
-          data.append("file", file)
-          post.photo = filename
-          try{
-            const imgUpload = await axios.post(URL + "/api/upload", data)
-          }
-          catch(err){
-            console.log(err)
+          const data = new FormData();
+          const filename = Date.now() + file.name;
+          data.append("img", filename);
+          data.append("file", file);
+          post.photo = filename;
+
+          try {
+            await axios.post(URL + "/api/upload", data);
+          } catch(err) {
+            console.log(err);
           }
         }
 
         try{
-          const res = await axios.post(URL + "/api/posts/create", post, {withCredentials: true})
-          navigate("/posts/post/" + res.data._id)
+          const res = await axios.post(URL + "/api/posts/create", post, {withCredentials: true});
+          navigate("/posts/post/" + res.data._id);
         }
         catch(err){
-          console.log(err)
+          console.log(err);
         }
-    }
+    };
+
   return (
     <div>
         <Navbar/>
@@ -102,6 +110,7 @@ const CreatePost = () => {
         </div>
         <Footer/>
     </div>
-  )
-}
+  );
+};
+
 export default CreatePost;
