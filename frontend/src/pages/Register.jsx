@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { URL } from "../url";
 
@@ -8,58 +8,12 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isAdmin, setIsAdmin] = useState("");
   const [error, setError] = useState(false);
   const navigate = useNavigate();
 
-
-
-
-
-
-
-
-  // useEffect(() => {
-  //   registerAdmin(); // Call registerAdmin function when component mounts
-  // }, []);
-
-  // useEffect(() => {
-  //   // Navigate to login page when admin registration is successful
-  //   if (username === "Admin" && email === "admin@admin.com" && password === "admin" && !error) {
-  //     navigate("/register");
-  //   }
-  // }, [username, email, password, isAdmin, error, navigate]);
-
-  // const registerAdmin = async () => {
-  //   try {
-  //     const res = await axios.post(URL + "/api/auth/register", {
-  //       username: "Admin",
-  //       email: "admin@admin.com",
-  //       password: "admin",
-  //       isAdmin: true
-  //     });
-  //     setUsername(username);
-  //     setEmail(email);
-  //     setPassword(password);
-  //     setIsAdmin(isAdmin);
-  //     setError(false);
-  //     navigate("/login");
-  //     console.log("Admin registered successfully:", res.data);
-  //   } catch (err) {
-  //     setError(true);
-  //     console.log("Error registering admin:", err);
-  //   }
-  // };
-
-
-
-
-  
-  
   const handleRegister = async () => {
     try {
-      let registerEndpoint = isAdmin ? "/api/auth/register-admin" : "/api/auth/register";
-      const res = await axios.post(URL + registerEndpoint, {
+      const res = await axios.post(URL + "/api/auth/register", {
         username,
         email,
         password,
