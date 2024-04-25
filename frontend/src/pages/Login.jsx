@@ -15,10 +15,11 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const res = await axios.post(
-        `https:danielblogg.onrender.com/api/auth/login`,
+        `${URL}/api/auth/login`,
         { username, password },
         { withCredentials: true }
       );
+      localStorage.setItem('token', res.data.token); // Assuming token is returned in response
       setUser(res.data);
       navigate("/");
     } catch (err) {

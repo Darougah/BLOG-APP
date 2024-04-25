@@ -1,3 +1,3 @@
-export const URL = "https://danielblogg.onrender.com";
+export const URL = "http://localhost:5000";
 
-export const IF="https://danielblogg.onrender.com/images/"
+export const IF="http://localhost:5000/images/"
