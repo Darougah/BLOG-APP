@@ -65,7 +65,7 @@ const CreatePost = () => {
           data.append("file", file)
           post.photo = filename
           try{
-            const imgUpload = await axios.post(URL + "/api/upload", data)
+            const imgUpload = await axios.post(`https:danielblogg.onrender.com/api/upload`, data)
           }
           catch(err){
             console.log(err)
@@ -73,7 +73,7 @@ const CreatePost = () => {
         }
         
         try{
-          const res = await axios.post(URL + "/api/posts/create", post, {withCredentials: true})
+          const res = await axios.post(`https:danielblogg.onrender.com/api/posts/create`, post, {withCredentials: true})
           navigate("/posts/post/" + res.data._id)
         }
         catch(err){

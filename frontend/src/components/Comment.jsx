@@ -23,7 +23,7 @@ const Comment = ({ c, post }) => {
 
   const deleteComment = async (id) => {
     try {
-      await axios.delete(URL + "/api/comments/" + id, { withCredentials: true });
+      await axios.delete(`https:danielblogg.onrender.com/api/comments/` + id, { withCredentials: true });
       window.location.reload(true);
     } catch (err) {
       console.log(err);

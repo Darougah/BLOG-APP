@@ -15,7 +15,7 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const res = await axios.post(
-        URL + "/api/auth/login",
+        `https:danielblogg.onrender.com/api/auth/login`,
         { username, password },
         { withCredentials: true }
       );
