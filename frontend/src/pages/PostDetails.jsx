@@ -42,6 +42,7 @@ const PostDetails = () => {
   };
   useEffect(() => {
     fetchPost();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postId]);
   const fetchPostComments=async()=>{
     setLoader(true)
@@ -58,10 +59,12 @@ const PostDetails = () => {
   }
   useEffect(()=>{
     fetchPostComments()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[postId])
   const postComment=async(e)=>{
     e.preventDefault()
     try{
+      // eslint-disable-next-line no-unused-vars
       const res=await axios.post(URL+"/api/comments/create",
       {comment:comment,author:user.username,postId:postId,userId:user._id},
       {withCredentials:true})

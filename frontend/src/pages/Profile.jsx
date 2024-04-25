@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import ProfilePosts from "../components/ProfilePosts";
 import Navbar from "./../components/Navbar";
 import axios from "axios";
+// eslint-disable-next-line no-unused-vars
 import { IF, URL } from "../url";
 import { UserContext } from "../context/UserContext";
 import { useNavigate, useParams } from "react-router-dom";
@@ -31,6 +32,7 @@ const fetchProfile=async ()=>{
 const handleUserUpdate=async ()=>{
   setUpdated(false)
   try{
+    // eslint-disable-next-line no-unused-vars
     const res=await axios.put(URL+"/api/users/"+user._id,{username,email,password},{withCredentials:true})
     // console.log(res.data)
     setUpdated(true)
@@ -44,6 +46,7 @@ const handleUserUpdate=async ()=>{
 
 const handleUserDelete=async()=>{
   try{
+    // eslint-disable-next-line no-unused-vars
     const res=await axios.delete(URL+"/api/users/"+user._id,{withCredentials:true})
     setUser(null)
     navigate("/")
@@ -67,9 +70,11 @@ const fetchUserPosts=async ()=>{
 }
 useEffect(()=>{
   fetchProfile()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 },[param])
 useEffect(()=>{
   fetchUserPosts()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 },[param])
   return (
     <div>

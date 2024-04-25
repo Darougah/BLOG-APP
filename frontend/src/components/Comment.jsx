@@ -1,4 +1,5 @@
 import axios from "axios";
+// eslint-disable-next-line no-unused-vars
 import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { URL } from "../url";
@@ -14,7 +15,7 @@ const censorSwearWords = (comment) => {
     censoredComment = censoredComment.replace(regex, "***");
   });
   return censoredComment;
-};
+};// eslint-disable-next-line no-unused-vars
 const Comment = ({ c, post }) => {
   const { user } = useContext(UserContext);
 

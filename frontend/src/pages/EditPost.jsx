@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -47,6 +48,7 @@ const [file,setFile] = useState(null)
       // console.log(data)
       //img upload
       try{
+        // eslint-disable-next-line no-unused-vars
         const imgUpload=await axios.post(URL+"/api/upload",data)
         // console.log(imgUpload.data)
       }
@@ -68,6 +70,7 @@ const [file,setFile] = useState(null)
   }
 useEffect(()=>{
   fetchPost()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 },[postId])
   const deleteCategory = (i) => {
     let updatedCats = [...cats];

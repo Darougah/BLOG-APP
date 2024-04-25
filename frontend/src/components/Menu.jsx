@@ -10,6 +10,7 @@ const Menu = () => {
 
   const handleLogout = async () => {
     try {
+      // eslint-disable-next-line no-unused-vars
       const res = await axios.get(URL + "/api/auth/logout", {
         withCredentials: true,
       });
