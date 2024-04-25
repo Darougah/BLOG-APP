@@ -3,16 +3,14 @@ import { UserContext } from "../context/UserContext";
 import axios from "axios";
 import { URL } from "../url";
 import { Link, useNavigate } from "react-router-dom";
-
 const Menu = () => {
   const { user } = useContext(UserContext);
   const { setUser } = useContext(UserContext);
-
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
-      const res = await axios.get(`https://danielblogg.onrender.com/api/auth/logout`, {
+      const res = await axios.get(URL + "/api/auth/logout", {
         withCredentials: true,
       });
       setUser(null);
@@ -59,5 +57,4 @@ const Menu = () => {
     </div>
   );
 };
-
 export default Menu;

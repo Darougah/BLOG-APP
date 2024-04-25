@@ -4,10 +4,8 @@ import { MdDelete } from "react-icons/md";
 import { URL } from "../url";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
-
 // List of swear words to censor
 const swearWords = ["badword1", "badword2", "badword3"];
-
 // Function to censor swear words
 const censorSwearWords = (comment) => {
   let censoredComment = comment;
@@ -17,19 +15,17 @@ const censorSwearWords = (comment) => {
   });
   return censoredComment;
 };
-
 const Comment = ({ c, post }) => {
   const { user } = useContext(UserContext);
 
   const deleteComment = async (id) => {
     try {
-      await axios.delete(`https:danielblogg.onrender.com/api/comments/` + id, { withCredentials: true });
+      await axios.delete(URL + "/api/comments/" + id, { withCredentials: true });
       window.location.reload(true);
     } catch (err) {
       console.log(err);
     }
   };
-
   return (
     <div className="px-2 py-2 bg-gray-200 rounded-lg my-2">
       <div className="flex items-center justify-between">
@@ -51,5 +47,4 @@ const Comment = ({ c, post }) => {
     </div>
   );
 };
-
 export default Comment;

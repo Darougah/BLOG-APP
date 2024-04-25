@@ -6,12 +6,10 @@ import axios from "axios";
 import { URL } from "../url";
 import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
-
 const EditPost = () => {
   const postId= useParams().id
   const {user}=useContext(UserContext)
   const navigate=useNavigate()
-
   
 const [title, setTitle]=useState("")
 const [desc,setDesc] = useState("")
@@ -21,18 +19,16 @@ const [file,setFile] = useState(null)
 
   const fetchPost=async()=>{
     try{
-      const res=await axios.get(`https:danielblogg.onrender.com/api/posts/`+postId)
+      const res=await axios.get(URL+"/api/posts/"+postId)
       setTitle(res.data.title)
       setDesc(res.data.desc)
       setFile(res.data.photo)
       setCats(res.data.categories)
-
     }
     catch(err){
       console.log(err)
     }
   }
-
   const handleUpdate=async (e)=>{
     e.preventDefault()
     const post={
@@ -42,7 +38,6 @@ const [file,setFile] = useState(null)
       userId:user._id,
       categories:cats
     }
-
     if(file){
       const data=new FormData()
       const filename=Date.now()+file.name
@@ -52,7 +47,7 @@ const [file,setFile] = useState(null)
       // console.log(data)
       //img upload
       try{
-        const imgUpload=await axios.post(`https:danielblogg.onrender.com/api/upload`,data)
+        const imgUpload=await axios.post(URL+"/api/upload",data)
         // console.log(imgUpload.data)
       }
       catch(err){
@@ -60,9 +55,9 @@ const [file,setFile] = useState(null)
       }
     }
     //post upload
-   
+
     try{
-      const res=await axios.put(`https:danielblogg.onrender.com/api/posts/`+postId,post,{withCredentials:true})
+      const res=await axios.put(URL+"/api/posts/"+postId,post,{withCredentials:true})
       navigate("/posts/post/"+res.data._id)
       // console.log(res.data)
 
@@ -71,26 +66,20 @@ const [file,setFile] = useState(null)
       console.log(err)
     }
   }
-
-
 useEffect(()=>{
   fetchPost()
 },[postId])
-
-
   const deleteCategory = (i) => {
     let updatedCats = [...cats];
     updatedCats.splice(i, 1); // splice takes the index and the number of items to remove
     setCats(updatedCats);
   };
-
   const addCategory = () => {
     let updatedCats = [...cats];
     updatedCats.push(cat);
     setCat("");
     setCats(updatedCats);
   };
-
   return (
     <div>
       <Navbar />
@@ -155,5 +144,4 @@ useEffect(()=>{
     </div>
   );
 };
-
 export default EditPost;

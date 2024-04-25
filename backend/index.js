@@ -10,10 +10,8 @@ const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
 const postRoute = require("./routes/posts");
 const commentRoute = require("./routes/comments");
-
 // Load environment variables
 dotenv.config();
-
 // Connect to MongoDB
 const connectDB = async () => {
   try {
@@ -23,28 +21,15 @@ const connectDB = async () => {
     console.error("Error connecting to database:", err);
   }
 };
-
 // Middleware setup
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "/images")));
-
-// Allow multiple origins to make requests
-const allowedOrigins = ["http://localhost:5173", "https://daniel-blog-app.vercel.app"];
-app.use(cors({ origin: allowedOrigins, credentials: true }));
-
-// CORS options for specific route
-const corsOptions = {
-  origin: 'https://daniel-blog-app.vercel.app',
-  credentials: true,
-};
-app.options('https://daniel-blog-app.vercel.app/api/auth/refetch', cors(corsOptions));
-
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(cookieParser());
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/comments", commentRoute);
-
 // Image upload
 const storage = multer.diskStorage({
   destination: (req, file, fn) => {
@@ -54,16 +39,13 @@ const storage = multer.diskStorage({
     fn(null, req.body.img);
   },
 });
-
 const upload = multer({ storage: storage });
 app.post("/api/upload", upload.single("file"), (req, res) => {
   res.status(200).json("Image has been uploaded successfully!");
 });
-
 // Register admin user if not exists
 const User = require("./models/User");
 const bcrypt = require("bcrypt");
-
 const registerAdmin = async () => {
   try {
     const existingAdmin = await User.findOne({ email: "Admin@example.com" });
@@ -84,7 +66,6 @@ const registerAdmin = async () => {
     console.error("Error creating admin user:", error);
   }
 };
-
 // Start the server and register admin user
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

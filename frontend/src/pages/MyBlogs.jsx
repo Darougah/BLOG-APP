@@ -7,8 +7,6 @@ import axios from "axios"
 import { URL } from "../url"
 import HomePosts from "../components/HomePosts"
 import Loader from "../components/Loader"
-
-
 const MyBlogs = () => {
     const {search}=useLocation()
   // console.log(search)
@@ -17,11 +15,10 @@ const MyBlogs = () => {
   const [loader,setLoader]=useState(false)
   const {user}=useContext(UserContext)
   // console.log(user)
-
   const fetchPosts=async()=>{
     setLoader(true)
     try{
-      const res=await axios.get(`https:danielblogg.onrender.com/api/posts/user/`+user._id)
+      const res=await axios.get(URL+"/api/posts/user/"+user._id)
       // console.log(res.data)
       setPosts(res.data)
       if(res.data.length===0){
@@ -38,12 +35,9 @@ const MyBlogs = () => {
       setLoader(true)
     }
   }
-
   useEffect(()=>{
     fetchPosts()
-
   },[search])
-
   return (
     <div>
         <Navbar/>
@@ -62,5 +56,4 @@ const MyBlogs = () => {
     </div>
   )
 }
-
 export default MyBlogs

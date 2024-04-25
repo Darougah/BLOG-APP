@@ -8,7 +8,6 @@ import { Link, useLocation } from "react-router-dom"
 import Loader from '../components/Loader'
 import { UserContext } from "../context/UserContext"
  
-
 const Home = () => {
   
   const {search}=useLocation()
@@ -18,11 +17,10 @@ const Home = () => {
   const [loader,setLoader]=useState(false)
   const {user}=useContext(UserContext)
   // console.log(user)
-
   const fetchPosts=async()=>{
     setLoader(true)
     try{
-      const res=await axios.get(`https:danielblogg.onrender.com/api/posts/`+search)
+      const res=await axios.get(URL+"/api/posts/"+search)
       // console.log(res.data)
       setPosts(res.data)
       if(res.data.length===0){
@@ -39,14 +37,9 @@ const Home = () => {
       setLoader(true)
     }
   }
-
   useEffect(()=>{
     fetchPosts()
-
   },[search])
-
-
-
   return (
     
     <>
@@ -67,5 +60,4 @@ const Home = () => {
     
   )
 }
-
 export default Home

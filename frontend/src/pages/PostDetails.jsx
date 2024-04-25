@@ -9,7 +9,6 @@ import { URL, IF } from "../url.js";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext.jsx";
 import Loader from "./../components/Loader";
-
 const PostDetails = () => {
   const postId = useParams().id;
   const [post, setPost] = useState({});
@@ -18,11 +17,10 @@ const PostDetails = () => {
   const [comment, setComment]=useState("")
   const [loader, setLoader] = useState(false);
   const navigate = useNavigate();
-
   const fetchPost = async () => {
     setLoader(true);
     try {
-      const res = await axios.get(`https:danielblogg.onrender.com/api/posts/` + postId);
+      const res = await axios.get(URL + "/api/posts/" + postId);
       setPost(res.data);
       setLoader(false);
     } catch (err) {
@@ -33,7 +31,7 @@ const PostDetails = () => {
 
   const handleDeletePost = async () => {
     try {
-      const res = await axios.delete(`https:danielblogg.onrender.com/api/posts/` + postId, {
+      const res = await axios.delete(URL + "/api/posts/" + postId, {
         withCredentials: true,
       });
       console.log(res.data);
@@ -42,15 +40,13 @@ const PostDetails = () => {
       console.log(err);
     }
   };
-
   useEffect(() => {
     fetchPost();
   }, [postId]);
-
   const fetchPostComments=async()=>{
     setLoader(true)
     try{
-      const res=await axios.get(`https:danielblogg.onrender.com/api/comments/post/`+postId)
+      const res=await axios.get(URL+"/api/comments/post/"+postId)
       setComments(res.data)
       setLoader(false)
 
@@ -60,30 +56,24 @@ const PostDetails = () => {
       console.log(err)
     }
   }
-
   useEffect(()=>{
     fetchPostComments()
-
   },[postId])
-
   const postComment=async(e)=>{
     e.preventDefault()
     try{
-      const res=await axios.post(`https:danielblogg.onrender.com/api/comments/create`,
+      const res=await axios.post(URL+"/api/comments/create",
       {comment:comment,author:user.username,postId:postId,userId:user._id},
       {withCredentials:true})
-      
+
       // fetchPostComments()
       // setComment("")
       window.location.reload(true)
-
     }
     catch(err){
          console.log(err)
     }
-
   }
-
   return (
     <div>
       <Navbar />
@@ -154,5 +144,4 @@ const PostDetails = () => {
     </div>
   );
 };
-
 export default PostDetails;

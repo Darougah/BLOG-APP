@@ -4,7 +4,6 @@ import { useContext, useState } from "react";
 import axios from "axios";
 import { URL } from "../url";
 import { UserContext } from "../context/UserContext";
-
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -15,11 +14,10 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const res = await axios.post(
-        `${URL}/api/auth/login`,
+        URL + "/api/auth/login",
         { username, password },
         { withCredentials: true }
       );
-      localStorage.setItem('token', res.data.token); // Assuming token is returned in response
       setUser(res.data);
       navigate("/");
     } catch (err) {
@@ -27,7 +25,6 @@ const Login = () => {
       console.log(err);
     }
   };
-
   return (
     <>
       <div className="flex items-center justify-between px-6 md:px-[200px] py-4">
@@ -76,5 +73,4 @@ const Login = () => {
     </>
   );
 };
-
 export default Login;
