@@ -19,7 +19,7 @@ Tanka ner ZIP fil eller klona ner projektet.
 Skapa en .env fil i backend mappen och skriv in: 
 
 MONGO_URL="din mongo db "
-# MONGO_URL="mongodb://localhost:27017" (ifall du kör local)
+MONGO_URL="mongodb://localhost:27017" (ifall du kör local)
 PORT ="5000"
 SECRET="lösenord"
 
