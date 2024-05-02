@@ -38,5 +38,7 @@ skapa en image mapp under backend så du får in alla bilder som du lägger in.
 
 npm start i båda terminalerna för att starta projektet.
 
+Ifall du vill publicera den på webben så kan du gå in i URL och ändra.
+
 
 
