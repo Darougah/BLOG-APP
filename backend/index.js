@@ -25,7 +25,7 @@ const connectDB = async () => {
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "/images")));
 app.use(cors({ 
-  origin: ["http://localhost:5173", "https://blogapp-a526.onrender.com", "https://daniel-blog-app.netlify.app"], 
+  origin: ["http://localhost:5173"], 
   credentials: true 
 }));
 app.use(cookieParser());
