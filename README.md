@@ -15,6 +15,8 @@ VG: Ett blogg inlägg eller kommentar innehållande “opassande språk” ska a
 
 Opassande språk bestämmer ni själva men det skulle kunna vara “banan” eller “rengöringsmedel”
 
+*****************************************************************************************************
+
 
 
 Starta projektet:
