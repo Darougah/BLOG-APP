@@ -8,7 +8,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
 // List of swear words to censor
-const swearWords = ["badword1", "badword2", "badword3"];
+const swearWords = ["fan", "jävla", "helvete" , "skit"];
 
 // Function to censor swear words
 const censorSwearWords = (text) => {

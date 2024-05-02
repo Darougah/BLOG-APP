@@ -6,7 +6,7 @@ import { URL } from "../url";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 // List of swear words to censor
-const swearWords = ["badword1", "badword2", "badword3"];
+const swearWords = ["fan", "jävla", "helvete" , "skit"];
 // Function to censor swear words
 const censorSwearWords = (comment) => {
   let censoredComment = comment;
